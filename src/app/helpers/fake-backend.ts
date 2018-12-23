@@ -34,11 +34,10 @@ export class FakeAPIInterceptor implements HttpInterceptor {
 
             // authenticate
             if (request.url.endsWith('/users/authenticate') && request.method === 'POST') {
-                let validUsers = dummyUsers.filter(userItem => (request.body.username === userItem.username && request.body.password === userItem.password));
+                let dummyUser = dummyUsers.find(userItem => (request.body.username === userItem.username && request.body.password === userItem.password));
                 //if (request.body.username === dummyUser.username && request.body.password === dummyUser.password) {
-                if (validUsers && validUsers.length > 0) {
+                if (dummyUser) {
                     // if login details are valid return 200 OK with a fake jwt token
-                    let dummyUser = validUsers[0];
                     let body = {
                         id: dummyUser.id,
                         username: dummyUser.username,
